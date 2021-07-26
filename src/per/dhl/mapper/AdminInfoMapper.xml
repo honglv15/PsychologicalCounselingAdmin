@@ -123,6 +123,7 @@
         </where>
         and admin_if_del = 0
     </select>
+
     <select id="getAdmId" resultType="java.lang.Integer">
         select *
         from admin_info

@@ -1,10 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<script src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="3rd/zui-1.9.2-dist/dist/css/zui.min.css">
+<script src="3rd/zui-1.9.2-dist/dist/js/zui.min.js"></script>
+<html lang="zh_cn">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>题库管理</title>
 </head>
 <body>
+<div class="panel panel-primary">
+    <div class="panel-heading ">
+        <h1 style="text-align: center">题库管理</h1>
+        <div>&nbsp;</div>
+        <div>
+            <span style="float: left; margin-left: 36%; font-size: 20px">领域:</span>
+            <span style="float: left" class="col-md-3">
+                <select class="form-control">
+                    <option value="0">请选择</option>
+                    <option value="1">亲子关系</option>
+                    <option value="2">情绪管理</option>
+                    <option value="3">人际关系</option>
+                    <option value="4">抑郁障碍</option>
+                </select>
+            </span>
+            <div>&nbsp;</div>
+        </div>
+        <div>&nbsp;</div>
+    </div>
+    <div class="panel-body">
+        <h2>题目管理:</h2>
+        <div>&nbsp;</div>
+        <div>
+            <div class="col-md-12">
+                <div class="col-md-5" style="margin-bottom: 10px"><h4>1、我感到愉快</h4></div>
+                <div style="float: right">
+                    <button type="button" class="btn btn-primary">修改</button>
+                    <button type="button" class="btn btn-danger">删除</button>
+                </div>
+            </div>
 
+            <div class="col-md-2">
+                <label class="radio-inline">
+                    <input type="radio" name="radioOptionsExample"> 单选框 1
+                </label>
+            </div>
+            <div class="col-md-2">
+                <label class="radio-inline">
+                    <input type="radio" name="radioOptionsExample"> 单选框 1
+                </label>
+            </div>
+            <div class="col-md-2">
+                <label class="radio-inline">
+                    <input type="radio" name="radioOptionsExample"> 单选框 1
+                </label>
+            </div>
+        </div>
+
+    </div>
+</div>
+<ul class="pager" style="margin-left: 45%">
+    <li><a id="prePage" href="#" class="previous">上一页</a></li>
+    <li><span id="tablepage" class="previous">1/1</span></li>
+    <li><a id="nextPage" href="#" class="next">下一页</a></li>
+</ul>
 </body>
+<script src="js/FundAccount.js"></script>
 </html>

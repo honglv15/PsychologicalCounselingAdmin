@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.ConsultInfoDao">
+  <resultMap id="BaseResultMap" type="generate.ConsultInfo">
+    <id column="consult_id" jdbcType="INTEGER" property="consultId" />
+    <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="consult_name" jdbcType="VARCHAR" property="consultName" />
+    <result column="consult_img" jdbcType="VARCHAR" property="consultImg" />
+    <result column="title_id" jdbcType="INTEGER" property="titleId" />
+    <result column="consult_school" jdbcType="VARCHAR" property="consultSchool" />
+    <result column="field_id" jdbcType="INTEGER" property="fieldId" />
+    <result column="consult_background" jdbcType="VARCHAR" property="consultBackground" />
+    <result column="consult_intro" jdbcType="VARCHAR" property="consultIntro" />
+    <result column="consult_fee" jdbcType="DOUBLE" property="consultFee" />
+    <result column="consult_money" jdbcType="DOUBLE" property="consultMoney" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    consult_id, admin_id, consult_name, consult_img, title_id, consult_school, field_id, 
+    consult_background, consult_intro, consult_fee, consult_money, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from consult_info
+    where consult_id = #{consultId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from consult_info
+    where consult_id = #{consultId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="consult_id" keyProperty="consultId" parameterType="generate.ConsultInfo" useGeneratedKeys="true">
+    insert into consult_info (admin_id, consult_name, consult_img, 
+      title_id, consult_school, field_id, 
+      consult_background, consult_intro, consult_fee, 
+      consult_money, remark)
+    values (#{adminId,jdbcType=INTEGER}, #{consultName,jdbcType=VARCHAR}, #{consultImg,jdbcType=VARCHAR}, 
+      #{titleId,jdbcType=INTEGER}, #{consultSchool,jdbcType=VARCHAR}, #{fieldId,jdbcType=INTEGER}, 
+      #{consultBackground,jdbcType=VARCHAR}, #{consultIntro,jdbcType=VARCHAR}, #{consultFee,jdbcType=DOUBLE}, 
+      #{consultMoney,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="consult_id" keyProperty="consultId" parameterType="generate.ConsultInfo" useGeneratedKeys="true">
+    insert into consult_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="consultName != null">
+        consult_name,
+      </if>
+      <if test="consultImg != null">
+        consult_img,
+      </if>
+      <if test="titleId != null">
+        title_id,
+      </if>
+      <if test="consultSchool != null">
+        consult_school,
+      </if>
+      <if test="fieldId != null">
+        field_id,
+      </if>
+      <if test="consultBackground != null">
+        consult_background,
+      </if>
+      <if test="consultIntro != null">
+        consult_intro,
+      </if>
+      <if test="consultFee != null">
+        consult_fee,
+      </if>
+      <if test="consultMoney != null">
+        consult_money,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adminId != null">
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="consultName != null">
+        #{consultName,jdbcType=VARCHAR},
+      </if>
+      <if test="consultImg != null">
+        #{consultImg,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null">
+        #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="consultSchool != null">
+        #{consultSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldId != null">
+        #{fieldId,jdbcType=INTEGER},
+      </if>
+      <if test="consultBackground != null">
+        #{consultBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="consultIntro != null">
+        #{consultIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="consultFee != null">
+        #{consultFee,jdbcType=DOUBLE},
+      </if>
+      <if test="consultMoney != null">
+        #{consultMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="generate.ConsultInfo">
+    update consult_info
+    <set>
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="consultName != null">
+        consult_name = #{consultName,jdbcType=VARCHAR},
+      </if>
+      <if test="consultImg != null">
+        consult_img = #{consultImg,jdbcType=VARCHAR},
+      </if>
+      <if test="titleId != null">
+        title_id = #{titleId,jdbcType=INTEGER},
+      </if>
+      <if test="consultSchool != null">
+        consult_school = #{consultSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldId != null">
+        field_id = #{fieldId,jdbcType=INTEGER},
+      </if>
+      <if test="consultBackground != null">
+        consult_background = #{consultBackground,jdbcType=VARCHAR},
+      </if>
+      <if test="consultIntro != null">
+        consult_intro = #{consultIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="consultFee != null">
+        consult_fee = #{consultFee,jdbcType=DOUBLE},
+      </if>
+      <if test="consultMoney != null">
+        consult_money = #{consultMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where consult_id = #{consultId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generate.ConsultInfo">
+    update consult_info
+    set admin_id = #{adminId,jdbcType=INTEGER},
+      consult_name = #{consultName,jdbcType=VARCHAR},
+      consult_img = #{consultImg,jdbcType=VARCHAR},
+      title_id = #{titleId,jdbcType=INTEGER},
+      consult_school = #{consultSchool,jdbcType=VARCHAR},
+      field_id = #{fieldId,jdbcType=INTEGER},
+      consult_background = #{consultBackground,jdbcType=VARCHAR},
+      consult_intro = #{consultIntro,jdbcType=VARCHAR},
+      consult_fee = #{consultFee,jdbcType=DOUBLE},
+      consult_money = #{consultMoney,jdbcType=DOUBLE},
+      remark = #{remark,jdbcType=VARCHAR}
+    where consult_id = #{consultId,jdbcType=INTEGER}
+  </update>
+</mapper>

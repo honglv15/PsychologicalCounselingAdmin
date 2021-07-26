@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<script src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="3rd/zui-1.9.2-dist/dist/css/zui.min.css">
+<script src="3rd/zui-1.9.2-dist/dist/js/zui.min.js"></script>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>资金账户</title>
+</head>
+<body>
+<div class="panel">
+    <div class="panel-body">
+        <div>
+            <div class="col-md-12">
+                <span class="col-md-1">余额:</span>
+                <span class="col-md-1" id="money">0</span>元
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="data-title-d" colspan="15" style="font-size: 25px;text-align: center"><b>业务收入情况</b></div>
+    </div>
+    <table id="table" class="table table-hover table-bordered">
+        <thead>
+        <tr align="center" style="font-weight: bold;">
+            <td>发生时间</td>
+            <td>客户姓名</td>
+            <td>咨询/预约</td>
+            <td>金额(元)</td>
+        </tr>
+        </thead>
+        <tbody class="mytable" id="mybody">
+
+        </tbody>
+    </table>
+</div>
+<ul class="pager" style="margin-left: 45%">
+    <li><a id="prePage" href="#" class="previous">上一页</a></li>
+    <li><span id="tablepage" class="previous">1/1</span></li>
+    <li><a id="nextPage" href="#" class="next">下一页</a></li>
+</ul>
+
+</body>
+
+<script src="js/FundAccount.js"></script>
+</html>

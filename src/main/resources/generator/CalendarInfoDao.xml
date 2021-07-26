@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.CalendarInfoDao">
+  <resultMap id="BaseResultMap" type="generate.CalendarInfo">
+    <id column="calendar_id" jdbcType="INTEGER" property="calendarId" />
+    <result column="consult_id" jdbcType="INTEGER" property="consultId" />
+    <result column="calendar_state" jdbcType="INTEGER" property="calendarState" />
+    <result column="calendar_time" jdbcType="TIMESTAMP" property="calendarTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    calendar_id, consult_id, calendar_state, calendar_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from calendar_info
+    where calendar_id = #{calendarId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from calendar_info
+    where calendar_id = #{calendarId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="calendar_id" keyProperty="calendarId" parameterType="generate.CalendarInfo" useGeneratedKeys="true">
+    insert into calendar_info (consult_id, calendar_state, calendar_time
+      )
+    values (#{consultId,jdbcType=INTEGER}, #{calendarState,jdbcType=INTEGER}, #{calendarTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="calendar_id" keyProperty="calendarId" parameterType="generate.CalendarInfo" useGeneratedKeys="true">
+    insert into calendar_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="consultId != null">
+        consult_id,
+      </if>
+      <if test="calendarState != null">
+        calendar_state,
+      </if>
+      <if test="calendarTime != null">
+        calendar_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="consultId != null">
+        #{consultId,jdbcType=INTEGER},
+      </if>
+      <if test="calendarState != null">
+        #{calendarState,jdbcType=INTEGER},
+      </if>
+      <if test="calendarTime != null">
+        #{calendarTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="generate.CalendarInfo">
+    update calendar_info
+    <set>
+      <if test="consultId != null">
+        consult_id = #{consultId,jdbcType=INTEGER},
+      </if>
+      <if test="calendarState != null">
+        calendar_state = #{calendarState,jdbcType=INTEGER},
+      </if>
+      <if test="calendarTime != null">
+        calendar_time = #{calendarTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where calendar_id = #{calendarId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generate.CalendarInfo">
+    update calendar_info
+    set consult_id = #{consultId,jdbcType=INTEGER},
+      calendar_state = #{calendarState,jdbcType=INTEGER},
+      calendar_time = #{calendarTime,jdbcType=TIMESTAMP}
+    where calendar_id = #{calendarId,jdbcType=INTEGER}
+  </update>
+</mapper>

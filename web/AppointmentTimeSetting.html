@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<script src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="3rd/zui-1.9.2-dist/dist/css/zui.min.css">
+<script src="3rd/zui-1.9.2-dist/dist/js/zui.min.js"></script>
+
+<link href="3rd/zui-1.9.2-dist/dist/lib/calendar/zui.calendar.min.css" rel="stylesheet">
+<script src="3rd/zui-1.9.2-dist/dist/lib/calendar/zui.calendar.min.js"></script>
+<script src="3rd/layer/layer.js"></script>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>预约时间设置</title>
+</head>
+<body>
+<!-- HTML 代码 -->
+<div id="calendar" class="calendar"></div>
+
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span
+                        class="sr-only">关闭</span></button>
+                <h4 class="modal-title">请你选择你的预约时间</h4>
+            </div>
+            <div class="modal-body">
+                <label class="checkbox-inline">
+                    <input class="checkboxItem" type="checkbox" value="08"> 8:00
+                </label>
+
+                <label class="checkbox-inline">
+                    <input class="checkboxItem" type="checkbox" value="09"> 9:00
+                </label>
+
+                <label class="checkbox-inline">
+                    <input class="checkboxItem" type="checkbox" value="10"> 10:00
+                </label>
+
+                <label class="checkbox-inline">
+                    <input class="checkboxItem" type="checkbox" value="11"> 11:00
+                </label>
+                <br>
+                <label class="checkbox-inline">
+                    <input class="checkboxItem" type="checkbox" value="14"> 14:00
+                </label>
+                <label class="checkbox-inline">
+                    <input class="checkboxItem" type="checkbox" value="15"> 15:00
+                </label>
+                <label class="checkbox-inline">
+                    <input class="checkboxItem" type="checkbox" value="16"> 16:00
+                </label><label class="checkbox-inline">
+                <input class="checkboxItem" type="checkbox" value="17"> 17:00
+            </label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" id="subEvents" class="btn btn-primary" data-dismiss="modal">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script src="js/AppointmentTimeSetting.js"></script>
+<script src="3rd/zui-1.9.2-dist/dist/js/zui.min.js"></script>
+</html>

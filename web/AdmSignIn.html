@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<script src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="3rd/zui-1.9.2-dist/dist/css/zui.min.css">
+<script src="3rd/zui-1.9.2-dist/dist/js/zui.min.js"></script>
+<head>
+    <meta charset="utf-8">
+    <title>管理员登录</title>
+    <link type="text/css" rel="stylesheet" href="css/AdmSignIn.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="form-signin">
+        <h2 class="form-signin-heading">Administrator sign in</h2>
+        <input type="text" id="admname" class="form-control" placeholder="用户名"/>
+        <input type="password" id="admpwd" class="form-control" placeholder="密码"/>
+        <input type="text" id="captchaCode" class="form-control" placeholder="验证码"/>
+        <img class="cap" src="CaptchaServlet" onclick="this.src +='?'+Math.random() "/>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="button" onclick="toLogin()">Sign In</button>
+    </div>
+</div> <!-- /container -->
+</body>
+<script>
+    function toLogin() {
+        var admname = document.getElementById("admname").value;
+        var admpwd = document.getElementById("admpwd").value;
+        var captchaCode = document.getElementById("captchaCode").value;
+        console.log(admname + " " + admpwd);
+        if (captchaCode != '') {
+            if (admname != '' || admpwd != '') {
+                $.ajax({
+                    url: 'AdminInfoServlet',
+                    type: 'post',
+                    data: {
+                        'admname': admname,
+                        'admpwd': admpwd,
+                        'captchaCode': captchaCode
+                    },
+                    async: true,
+                    dataType: 'JSON',
+                    success: function (resp) {
+                        console.log(resp);
+                        alert(resp.message);
+                        if (resp.id == 0) {
+                            window.location.href = resp.location;
+                        }
+                    },
+                    error: function (data) {
+                        console.log("联系管理员")
+                    }
+                })
+            }
+        } else {
+            console.log("验证码错误")
+        }
+
+
+    }
+
+</script>
+</html>

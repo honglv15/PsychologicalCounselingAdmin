@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.UserInfoDao">
+  <resultMap id="BaseResultMap" type="generate.UserInfo">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_account" jdbcType="VARCHAR" property="userAccount" />
+    <result column="user_pwd" jdbcType="VARCHAR" property="userPwd" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_age" jdbcType="INTEGER" property="userAge" />
+    <result column="user_sex" jdbcType="INTEGER" property="userSex" />
+    <result column="user_phone" jdbcType="INTEGER" property="userPhone" />
+    <result column="user_address" jdbcType="VARCHAR" property="userAddress" />
+    <result column="user_status" jdbcType="INTEGER" property="userStatus" />
+    <result column="user_money" jdbcType="FLOAT" property="userMoney" />
+    <result column="user_if_del" jdbcType="INTEGER" property="userIfDel" />
+    <result column="user_ctime" jdbcType="TIMESTAMP" property="userCtime" />
+    <result column="user_mtime" jdbcType="TIMESTAMP" property="userMtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    user_id, user_account, user_pwd, user_name, user_age, user_sex, user_phone, user_address, 
+    user_status, user_money, user_if_del, user_ctime, user_mtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="user_id" keyProperty="userId" parameterType="generate.UserInfo" useGeneratedKeys="true">
+    insert into user_info (user_account, user_pwd, user_name, 
+      user_age, user_sex, user_phone, 
+      user_address, user_status, user_money, 
+      user_if_del, user_ctime, user_mtime
+      )
+    values (#{userAccount,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userAge,jdbcType=INTEGER}, #{userSex,jdbcType=INTEGER}, #{userPhone,jdbcType=INTEGER}, 
+      #{userAddress,jdbcType=VARCHAR}, #{userStatus,jdbcType=INTEGER}, #{userMoney,jdbcType=FLOAT}, 
+      #{userIfDel,jdbcType=INTEGER}, #{userCtime,jdbcType=TIMESTAMP}, #{userMtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="user_id" keyProperty="userId" parameterType="generate.UserInfo" useGeneratedKeys="true">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userAccount != null">
+        user_account,
+      </if>
+      <if test="userPwd != null">
+        user_pwd,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userAge != null">
+        user_age,
+      </if>
+      <if test="userSex != null">
+        user_sex,
+      </if>
+      <if test="userPhone != null">
+        user_phone,
+      </if>
+      <if test="userAddress != null">
+        user_address,
+      </if>
+      <if test="userStatus != null">
+        user_status,
+      </if>
+      <if test="userMoney != null">
+        user_money,
+      </if>
+      <if test="userIfDel != null">
+        user_if_del,
+      </if>
+      <if test="userCtime != null">
+        user_ctime,
+      </if>
+      <if test="userMtime != null">
+        user_mtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userAccount != null">
+        #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null">
+        #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null">
+        #{userPhone,jdbcType=INTEGER},
+      </if>
+      <if test="userAddress != null">
+        #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userMoney != null">
+        #{userMoney,jdbcType=FLOAT},
+      </if>
+      <if test="userIfDel != null">
+        #{userIfDel,jdbcType=INTEGER},
+      </if>
+      <if test="userCtime != null">
+        #{userCtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userMtime != null">
+        #{userMtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="generate.UserInfo">
+    update user_info
+    <set>
+      <if test="userAccount != null">
+        user_account = #{userAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null">
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userAge != null">
+        user_age = #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="userSex != null">
+        user_sex = #{userSex,jdbcType=INTEGER},
+      </if>
+      <if test="userPhone != null">
+        user_phone = #{userPhone,jdbcType=INTEGER},
+      </if>
+      <if test="userAddress != null">
+        user_address = #{userAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="userStatus != null">
+        user_status = #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userMoney != null">
+        user_money = #{userMoney,jdbcType=FLOAT},
+      </if>
+      <if test="userIfDel != null">
+        user_if_del = #{userIfDel,jdbcType=INTEGER},
+      </if>
+      <if test="userCtime != null">
+        user_ctime = #{userCtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userMtime != null">
+        user_mtime = #{userMtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generate.UserInfo">
+    update user_info
+    set user_account = #{userAccount,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_age = #{userAge,jdbcType=INTEGER},
+      user_sex = #{userSex,jdbcType=INTEGER},
+      user_phone = #{userPhone,jdbcType=INTEGER},
+      user_address = #{userAddress,jdbcType=VARCHAR},
+      user_status = #{userStatus,jdbcType=INTEGER},
+      user_money = #{userMoney,jdbcType=FLOAT},
+      user_if_del = #{userIfDel,jdbcType=INTEGER},
+      user_ctime = #{userCtime,jdbcType=TIMESTAMP},
+      user_mtime = #{userMtime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

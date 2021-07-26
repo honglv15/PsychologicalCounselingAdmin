@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.UserIncomeInfoDao">
+  <resultMap id="BaseResultMap" type="generate.UserIncomeInfo">
+    <id column="income_id" jdbcType="INTEGER" property="incomeId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="consult_id" jdbcType="INTEGER" property="consultId" />
+    <result column="income_content" jdbcType="VARCHAR" property="incomeContent" />
+    <result column="income_operation" jdbcType="VARCHAR" property="incomeOperation" />
+    <result column="income_money" jdbcType="DOUBLE" property="incomeMoney" />
+    <result column="income_time" jdbcType="TIMESTAMP" property="incomeTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    income_id, user_id, consult_id, income_content, income_operation, income_money, income_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_income_info
+    where income_id = #{incomeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_income_info
+    where income_id = #{incomeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="income_id" keyProperty="incomeId" parameterType="generate.UserIncomeInfo" useGeneratedKeys="true">
+    insert into user_income_info (user_id, consult_id, income_content, 
+      income_operation, income_money, income_time
+      )
+    values (#{userId,jdbcType=INTEGER}, #{consultId,jdbcType=INTEGER}, #{incomeContent,jdbcType=VARCHAR}, 
+      #{incomeOperation,jdbcType=VARCHAR}, #{incomeMoney,jdbcType=DOUBLE}, #{incomeTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="income_id" keyProperty="incomeId" parameterType="generate.UserIncomeInfo" useGeneratedKeys="true">
+    insert into user_income_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="consultId != null">
+        consult_id,
+      </if>
+      <if test="incomeContent != null">
+        income_content,
+      </if>
+      <if test="incomeOperation != null">
+        income_operation,
+      </if>
+      <if test="incomeMoney != null">
+        income_money,
+      </if>
+      <if test="incomeTime != null">
+        income_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="consultId != null">
+        #{consultId,jdbcType=INTEGER},
+      </if>
+      <if test="incomeContent != null">
+        #{incomeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeOperation != null">
+        #{incomeOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeMoney != null">
+        #{incomeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="incomeTime != null">
+        #{incomeTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="generate.UserIncomeInfo">
+    update user_income_info
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="consultId != null">
+        consult_id = #{consultId,jdbcType=INTEGER},
+      </if>
+      <if test="incomeContent != null">
+        income_content = #{incomeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeOperation != null">
+        income_operation = #{incomeOperation,jdbcType=VARCHAR},
+      </if>
+      <if test="incomeMoney != null">
+        income_money = #{incomeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="incomeTime != null">
+        income_time = #{incomeTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where income_id = #{incomeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generate.UserIncomeInfo">
+    update user_income_info
+    set user_id = #{userId,jdbcType=INTEGER},
+      consult_id = #{consultId,jdbcType=INTEGER},
+      income_content = #{incomeContent,jdbcType=VARCHAR},
+      income_operation = #{incomeOperation,jdbcType=VARCHAR},
+      income_money = #{incomeMoney,jdbcType=DOUBLE},
+      income_time = #{incomeTime,jdbcType=TIMESTAMP}
+    where income_id = #{incomeId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.dhl.mapper.FundAccountMapper">
+
+    <select id="GetFundAccount" resultType="per.dhl.qo.FundAccountQo">
+        select *
+        from admin_income_info a
+                 INNER JOIN user_info b ON a.user_id = b.user_id
+            limit #{lim}
+           , #{off};
+    </select>
+    <select id="CountFundAccount" resultType="java.lang.Integer">
+        select count(*)
+        from admin_income_info
+    </select>
+    <select id="getConsultMoney" resultType="java.lang.Double">
+        select consult_money
+        from consult_info
+        where admin_id = #{adminId}
+    </select>
+</mapper>

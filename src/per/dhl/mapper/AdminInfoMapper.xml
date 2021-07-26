@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.dhl.mapper.AdminInfoMapper">
+
+    <resultMap id="BaseResultMap" type="per.dhl.pojo.AdminInfo">
+        <id column="admin_id" jdbcType="INTEGER" property="adminId"/>
+        <result column="admin_account" jdbcType="VARCHAR" property="adminAccount"/>
+        <result column="admin_password" jdbcType="VARCHAR" property="adminPassword"/>
+        <result column="role_id" jdbcType="INTEGER" property="roleId"/>
+        <result column="admin_statue" jdbcType="INTEGER" property="adminStatue"/>
+        <result column="admin_if_del" jdbcType="INTEGER" property="adminIfDel"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        admin_id
+        , admin_account, admin_password, role_id, admin_statue, admin_if_del
+    </sql>
+
+    <insert id="admAccount">
+        insert into admin_info
+        (admin_account,
+        admin_password,
+        role_id)
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="admAccount != null">
+                #{admAccount},
+            </if>
+            <if test="admPwd != null">
+                #{admPwd},
+            </if>
+            <if test="admRoleVal != null">
+                #{admRoleVal},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="modifyAdmStatus">
+        update admin_info
+        set admin_statue=#{admStatus}
+        where admin_account = #{admAccount};
+    </update>
+
+    <update id="delAdmStatus">
+        update admin_info
+        set admin_if_del=1
+        where admin_account = #{admAccount};
+    </update>
+
+    <update id="resetPwd">
+        update admin_info
+        set admin_password=#{AdmPwd}
+        where admin_account = #{admAccount};
+    </update>
+
+    <select id="SelectAdmInfoByNameAndPwd" resultType="per.dhl.pojo.AdminInfo">
+        select
+        <include refid="Base_Column_List"></include>
+        from admin_info
+        <where>
+            <if test="adminAccount!=null">
+                and admin_account=#{adminAccount}
+            </if>
+            <if test="adminPassword!=null">
+                and admin_password=#{adminPassword}
+            </if>
+        </where>
+    </select>
+    <select id="selectAdms" resultType="per.dhl.qo.AdmTableQo">
+        SELECT *
+        FROM admin_info a
+                 INNER JOIN consult_info b ON a.admin_id = b.admin_id
+                 INNER JOIN title_info c ON b.title_id = c.title_id
+                 INNER JOIN role_info d on a.role_id = d.role_id
+        where admin_if_del = 0
+            limit #{lim}
+            , #{off};
+    </select>
+    <select id="countSelectAdms" resultType="java.lang.Integer">
+        select count(*)
+        FROM admin_info a
+                 INNER JOIN consult_info b ON a.admin_id = b.admin_id
+                 INNER JOIN title_info c ON b.title_id = c.title_id
+                 INNER JOIN role_info d on a.role_id = d.role_id
+        where admin_if_del = 0;
+    </select>
+    <select id="searchAdmInfo" resultType="per.dhl.qo.AdmTableQo">
+        select *
+        FROM admin_info a
+        INNER JOIN consult_info b ON a.admin_id = b.admin_id
+        INNER JOIN title_info c ON b.title_id = c.title_id
+        INNER JOIN role_info d on a.role_id = d.role_id
+        <where>
+            <if test="admNameSearch!=''">
+                and admin_account like concat('%', #{admNameSearch}, '%')
+            </if>
+            <if test="titleSelect!=null and titleSelect!=''">
+                and b.title_id =#{titleSelect}
+            </if>
+            <if test="admStatus!=null and admStatus!=''">
+                and admin_statue=#{admStatus}
+            </if>
+        </where>
+        and admin_if_del = 0
+        limit #{lim}, #{off};
+    </select>
+    <select id="searchCountAdm" resultType="java.lang.Integer">
+        select count(*)
+        FROM admin_info a
+        INNER JOIN consult_info b ON a.admin_id = b.admin_id
+        INNER JOIN title_info c ON b.title_id = c.title_id
+        INNER JOIN role_info d on a.role_id = d.role_id
+        <where>
+            <if test="admNameSearch!=''">
+                and admin_account like concat('%', #{admNameSearch}, '%')
+            </if>
+            <if test="titleSelect!=''">
+                and b.title_id =#{titleSelect}
+            </if>
+            <if test="admStatus!=''">
+                and admin_statue=#{admStatus}
+            </if>
+        </where>
+        and admin_if_del = 0
+    </select>
+    <select id="getAdmId" resultType="java.lang.Integer">
+        select *
+        from admin_info
+        where admin_account = #{admAccount}
+    </select>
+
+</mapper>

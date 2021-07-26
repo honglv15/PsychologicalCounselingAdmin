@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.OrderInfoDao">
+  <resultMap id="BaseResultMap" type="generate.OrderInfo">
+    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="order_time" jdbcType="VARCHAR" property="orderTime" />
+    <result column="order_suctime" jdbcType="VARCHAR" property="orderSuctime" />
+    <result column="consult_id" jdbcType="INTEGER" property="consultId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="field_id" jdbcType="INTEGER" property="fieldId" />
+    <result column="state_id" jdbcType="INTEGER" property="stateId" />
+    <result column="order_problem" jdbcType="VARCHAR" property="orderProblem" />
+    <result column="order_reply" jdbcType="VARCHAR" property="orderReply" />
+    <result column="reply_time" jdbcType="VARCHAR" property="replyTime" />
+    <result column="comment_content" jdbcType="VARCHAR" property="commentContent" />
+    <result column="comment_time" jdbcType="VARCHAR" property="commentTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    order_id, order_time, order_suctime, consult_id, user_id, field_id, state_id, order_problem, 
+    order_reply, reply_time, comment_content, comment_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_info
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from order_info
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="order_id" keyProperty="orderId" parameterType="generate.OrderInfo" useGeneratedKeys="true">
+    insert into order_info (order_time, order_suctime, consult_id, 
+      user_id, field_id, state_id, 
+      order_problem, order_reply, reply_time, 
+      comment_content, comment_time)
+    values (#{orderTime,jdbcType=VARCHAR}, #{orderSuctime,jdbcType=VARCHAR}, #{consultId,jdbcType=INTEGER}, 
+      #{userId,jdbcType=INTEGER}, #{fieldId,jdbcType=INTEGER}, #{stateId,jdbcType=INTEGER}, 
+      #{orderProblem,jdbcType=VARCHAR}, #{orderReply,jdbcType=VARCHAR}, #{replyTime,jdbcType=VARCHAR}, 
+      #{commentContent,jdbcType=VARCHAR}, #{commentTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="order_id" keyProperty="orderId" parameterType="generate.OrderInfo" useGeneratedKeys="true">
+    insert into order_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderTime != null">
+        order_time,
+      </if>
+      <if test="orderSuctime != null">
+        order_suctime,
+      </if>
+      <if test="consultId != null">
+        consult_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="fieldId != null">
+        field_id,
+      </if>
+      <if test="stateId != null">
+        state_id,
+      </if>
+      <if test="orderProblem != null">
+        order_problem,
+      </if>
+      <if test="orderReply != null">
+        order_reply,
+      </if>
+      <if test="replyTime != null">
+        reply_time,
+      </if>
+      <if test="commentContent != null">
+        comment_content,
+      </if>
+      <if test="commentTime != null">
+        comment_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSuctime != null">
+        #{orderSuctime,jdbcType=VARCHAR},
+      </if>
+      <if test="consultId != null">
+        #{consultId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="fieldId != null">
+        #{fieldId,jdbcType=INTEGER},
+      </if>
+      <if test="stateId != null">
+        #{stateId,jdbcType=INTEGER},
+      </if>
+      <if test="orderProblem != null">
+        #{orderProblem,jdbcType=VARCHAR},
+      </if>
+      <if test="orderReply != null">
+        #{orderReply,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTime != null">
+        #{replyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null">
+        #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentTime != null">
+        #{commentTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="generate.OrderInfo">
+    update order_info
+    <set>
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSuctime != null">
+        order_suctime = #{orderSuctime,jdbcType=VARCHAR},
+      </if>
+      <if test="consultId != null">
+        consult_id = #{consultId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="fieldId != null">
+        field_id = #{fieldId,jdbcType=INTEGER},
+      </if>
+      <if test="stateId != null">
+        state_id = #{stateId,jdbcType=INTEGER},
+      </if>
+      <if test="orderProblem != null">
+        order_problem = #{orderProblem,jdbcType=VARCHAR},
+      </if>
+      <if test="orderReply != null">
+        order_reply = #{orderReply,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTime != null">
+        reply_time = #{replyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="commentContent != null">
+        comment_content = #{commentContent,jdbcType=VARCHAR},
+      </if>
+      <if test="commentTime != null">
+        comment_time = #{commentTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generate.OrderInfo">
+    update order_info
+    set order_time = #{orderTime,jdbcType=VARCHAR},
+      order_suctime = #{orderSuctime,jdbcType=VARCHAR},
+      consult_id = #{consultId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      field_id = #{fieldId,jdbcType=INTEGER},
+      state_id = #{stateId,jdbcType=INTEGER},
+      order_problem = #{orderProblem,jdbcType=VARCHAR},
+      order_reply = #{orderReply,jdbcType=VARCHAR},
+      reply_time = #{replyTime,jdbcType=VARCHAR},
+      comment_content = #{commentContent,jdbcType=VARCHAR},
+      comment_time = #{commentTime,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

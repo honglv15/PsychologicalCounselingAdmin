@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.dhl.mapper.UserInfoMapper">
+    <update id="modifyUserStatus">
+        update user_info
+        set user_status=#{userStatus}
+        where user_account = #{userAccount};
+    </update>
+    <update id="delUser">
+        update user_info
+        set user_if_del=1
+        where user_account = #{userAccount};
+    </update>
+    <update id="resetPwd">
+        update user_info
+        set user_pwd=#{userPwd}
+        where user_account = #{userAccount};
+    </update>
+    <select id="selectUsers" resultType="per.dhl.pojo.UserInfo">
+        select *
+        from user_info
+        <where>
+            <if test="userNameSearch!=''">
+                and user_account like concat('%', #{userNameSearch}, '%')
+            </if>
+            <if test="userIfDel!=null">
+                and user_if_del=#{userIfDel}
+            </if>
+        </where>
+        limit #{lim}, #{off};
+    </select>
+    <select id="countUsers" resultType="java.lang.Integer">
+        select count(*)
+        from user_info
+        <where>
+            <if test="userNameSearch!=''">
+                and user_account like concat('%', #{userNameSearch}, '%')
+            </if>
+            <if test="userIfDel!=null">
+                and user_if_del=#{userIfDel}
+            </if>
+        </where>
+    </select>
+    <select id="searchUserInfo" resultType="per.dhl.pojo.UserInfo">
+        select *
+        from user_info
+        <where>
+            <if test="userNameSearch!=''">
+                and user_account like concat('%', #{userNameSearch}, '%')
+            </if>
+            <if test="userStatus!=null">
+                and user_status=#{userStatus}
+            </if>
+        </where>
+        limit #{lim}, #{off};
+    </select>
+
+    <select id="SearchCountUsers" resultType="java.lang.Integer">
+        select count(*)
+        from user_info
+        <where>
+            <if test="userNameSearch!=''">
+                and user_account like concat('%', #{userNameSearch}, '%')
+            </if>
+            <if test="userStatus!=null">
+                and user_status=#{userStatus}
+            </if>
+        </where>
+    </select>
+</mapper>

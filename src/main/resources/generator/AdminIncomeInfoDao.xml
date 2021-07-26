@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="generate.AdminIncomeInfoDao">
+  <resultMap id="BaseResultMap" type="generate.AdminIncomeInfo">
+    <id column="aincome_id" jdbcType="INTEGER" property="aincomeId" />
+    <result column="consult_id" jdbcType="INTEGER" property="consultId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="aincome_content" jdbcType="VARCHAR" property="aincomeContent" />
+    <result column="aincome_money" jdbcType="DOUBLE" property="aincomeMoney" />
+    <result column="aincome_time" jdbcType="VARCHAR" property="aincomeTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    aincome_id, consult_id, user_id, aincome_content, aincome_money, aincome_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin_income_info
+    where aincome_id = #{aincomeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from admin_income_info
+    where aincome_id = #{aincomeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="aincome_id" keyProperty="aincomeId" parameterType="generate.AdminIncomeInfo" useGeneratedKeys="true">
+    insert into admin_income_info (consult_id, user_id, aincome_content, 
+      aincome_money, aincome_time)
+    values (#{consultId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{aincomeContent,jdbcType=VARCHAR}, 
+      #{aincomeMoney,jdbcType=DOUBLE}, #{aincomeTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="aincome_id" keyProperty="aincomeId" parameterType="generate.AdminIncomeInfo" useGeneratedKeys="true">
+    insert into admin_income_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="consultId != null">
+        consult_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="aincomeContent != null">
+        aincome_content,
+      </if>
+      <if test="aincomeMoney != null">
+        aincome_money,
+      </if>
+      <if test="aincomeTime != null">
+        aincome_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="consultId != null">
+        #{consultId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="aincomeContent != null">
+        #{aincomeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="aincomeMoney != null">
+        #{aincomeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="aincomeTime != null">
+        #{aincomeTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="generate.AdminIncomeInfo">
+    update admin_income_info
+    <set>
+      <if test="consultId != null">
+        consult_id = #{consultId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="aincomeContent != null">
+        aincome_content = #{aincomeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="aincomeMoney != null">
+        aincome_money = #{aincomeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="aincomeTime != null">
+        aincome_time = #{aincomeTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where aincome_id = #{aincomeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="generate.AdminIncomeInfo">
+    update admin_income_info
+    set consult_id = #{consultId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      aincome_content = #{aincomeContent,jdbcType=VARCHAR},
+      aincome_money = #{aincomeMoney,jdbcType=DOUBLE},
+      aincome_time = #{aincomeTime,jdbcType=VARCHAR}
+    where aincome_id = #{aincomeId,jdbcType=INTEGER}
+  </update>
+</mapper>

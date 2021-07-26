@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<script src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="3rd/zui-1.9.2-dist/dist/css/zui.min.css">
+<script src="3rd/layer/layer.js"></script>
+<link rel="stylesheet" href="3rd/zui-1.9.2-dist/dist/lib/datetimepicker/datetimepicker.min.css">
+<script src="3rd/zui-1.9.2-dist/dist/lib/datetimepicker/datetimepicker.min.js"></script>
+<link rel="stylesheet" href="css/AppointmentList.css">
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>预约管理</title>
+</head>
+<body>
+<div class="panel">
+    <div class="panel-body">
+        <div>
+            <div class="col-md-2"><input type="text" id="consult" class="form-control  "
+                                         placeholder="咨询师">
+            </div>
+            <div class="col-md-2"><input type="text" id="user" class="form-control  "
+                                         placeholder="用户">
+            </div>
+        </div>
+        <div>
+            <div class="col-md-1">
+                <div style="font-size: 15px; text-align: right; margin-top: 5px">预约时间</div>
+            </div>
+            <div class="col-md-2"><input type="text" id="Stime" class="form-control form-datetime "
+                                         readonly="readonly" placeholder="开始时间">
+            </div>
+            <div class="col-md-2"><input type="text" id="Etime" class="form-control form-datetime "
+                                         readonly="readonly" placeholder="结束时间">
+            </div>
+            <div class="col-md-1"><input type="button" id="SearchBtn" class="btn btn-primary" value="查询"></div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="data-title-d" colspan="15" style="font-size: 25px;text-align: center"><b>预约列表</b></div>
+    </div>
+    <table id="table" class="table table-hover table-bordered">
+        <thead>
+        <tr align="center" style="font-weight: bold;">
+            <td>预约时间</td>
+            <td>心理咨询师</td>
+            <td>用户</td>
+            <td>领域</td>
+            <td>完成时间</td>
+            <td>状态</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody class="mytable" id="mybody">
+
+        </tbody>
+    </table>
+</div>
+<ul class="pager" style="margin-left: 45%">
+    <li><a id="prePage" href="#" class="previous">上一页</a></li>
+    <li><span id="tablepage" class="previous">1/1</span></li>
+    <li><a id="nextPage" href="#" class="next">下一页</a></li>
+</ul>
+</div>
+
+<div class="modal fade" id="DetailManage">
+    <div class="modal-dialog">
+        <div class="modal-content ">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" style="text-align: center">诊断答复</h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="input-group col-md-3" style="float: left">
+                        <span class="input-group-addon">咨询人</span>
+                        <input type="text" id="advisoryD" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="input-group col-md-3" style="float: left">
+                        <span class="input-group-addon">领域</span>
+                        <input type="text" id="fieldD" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="input-group col-md-4" style="float: left">
+                        <span class="input-group-addon">预约时间</span>
+                        <input type="text" id="oTimeD" class="form-control" disabled>
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div class="input-group col-md-3" style="float: left">
+                        <span class="input-group-addon">预约状态</span>
+                        <input type="text" id="ReservationStatusD" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="input-group col-md-3" style="float: left">
+                        <span class="input-group-addon">费用</span>
+                        <input type="text" id="feeD" class="form-control" disabled>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="input-group col-md-4" style="float: left">
+                        <span class="input-group-addon">咨询师</span>
+                        <input type="text" id="consultNameD" class="form-control" disabled>
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div>问题描述</div>
+                    <div><textarea class="form-control" id="problemD" style="resize: none" disabled></textarea></div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div>诊断答复:</div>
+                    <div><textarea id="replyD" class="form-control" style="resize: none" disabled></textarea></div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div class="input-group col-md-5" style="float: left">
+                        <span class="input-group-addon">答复时间</span>
+                        <input type="text" id="replyTime" style="resize: none" class="form-control" disabled>
+                    </div>
+                </div>
+                <div>&nbsp;</div>
+                <div class="col-md-12">
+                    <div>评价内容:</div>
+                    <div><textarea id="contents" class="form-control" disabled></textarea></div>
+                </div>
+                <div>&nbsp;</div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+</body>
+<script src="3rd/zui-1.9.2-dist/dist/js/zui.min.js"></script>
+<script src="js/AppointmentManagement.js"></script>
+</html>

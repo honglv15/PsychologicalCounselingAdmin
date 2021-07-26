@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.dhl.mapper.OrderInfoMapper">
+
+    <update id="confirmAppointment">
+        update order_info
+        set state_id=3
+        where order_time = #{orderTime}
+          and user_id = #{userId}
+    </update>
+
+
+    <select id="getOrderTable" resultType="per.dhl.qo.AppointmentListQo">
+        SELECT *
+        from order_info a
+        INNER JOIN consult_info b ON a.consult_id = b.consult_id
+        INNER JOIN field_info c ON a.field_id = c.field_id
+        INNER JOIN user_info d ON d.user_id = a.user_id
+        INNER JOIN order_state e ON a.state_id = e.state_id
+        <where>
+            <if test="stime!=''">
+                and order_time<![CDATA[ >= ]]>#{stime}
+            </if>
+            <if test="etime!=''">
+                and order_time<![CDATA[ <= ]]>#{etime}
+            </if>
+            <if test="state!=0">
+                and a.state_id=#{state}
+            </if>
+        </where>
+        limit #{limit},#{offset}
+    </select>
+
+    <update id="updateUserMoney">
+        update user_info
+        set user_money=#{balance}
+        where user_id = #{userId}
+    </update>
+
+    <update id="updateConsultMoney">
+        update consult_info
+        set consult_money=#{nowConsultMoney}
+        where admin_id = #{adminId}
+    </update>
+
+    <select id="queryUserIfMoney" resultType="java.lang.Double">
+        SELECT user_money
+        FROM user_info
+        WHERE user_id = #{userId}
+
+    </select>
+
+    <select id="queryConsultMoney" resultType="per.dhl.pojo.ConsultInfo">
+        select *
+        from consult_info
+        where admin_id = #{adminId}
+    </select>
+
+    <select id="countOrderTable" resultType="java.lang.Integer">
+        SELECT count(*)
+        from order_info a
+        INNER JOIN consult_info b ON a.consult_id = b.consult_id
+        INNER JOIN field_info c ON a.field_id = c.field_id
+        INNER JOIN user_info d ON d.user_id = a.user_id
+        INNER JOIN order_state e ON a.state_id = e.state_id
+        <where>
+            <if test="stime!=''">
+                and order_time<![CDATA[ >= ]]>#{stime}
+            </if>
+            <if test="etime!=''">
+                and order_time<![CDATA[ <= ]]>#{etime}
+            </if>
+            <if test="state!=0">
+                and a.state_id=#{state}
+            </if>
+        </where>
+    </select>
+
+    <select id="GetDetailOrderInfo" resultType="per.dhl.qo.OrderTableQo">
+        SELECT *
+        from order_info a
+                 INNER JOIN consult_info b ON a.consult_id = b.consult_id
+                 INNER JOIN field_info c ON a.field_id = c.field_id
+                 INNER JOIN user_info d ON d.user_id = a.user_id
+                 INNER JOIN order_state e ON a.state_id = e.state_id
+                 INNER JOIN admin_info f ON b.admin_id = f.admin_id
+        where a.user_id = #{userId}
+          and a.order_time = #{orderTime}
+    </select>
+
+    <select id="AppointmentManagement" resultType="per.dhl.qo.AppointmentManagementQo">
+        SELECT
+        *
+        FROM
+        order_info a
+        INNER JOIN consult_info b ON a.consult_id = b.consult_id
+        INNER JOIN field_info c ON a.field_id = c.field_id
+        INNER JOIN admin_info d ON d.admin_id = b.admin_id
+        INNER JOIN order_state e ON a.state_id = e.state_id
+        INNER JOIN user_info f ON a.user_id=f.user_id
+        INNER JOIN admin_info g ON b.admin_id =g.admin_id
+        <where>
+            <if test="consult!=''">
+                and g.admin_account like concat('%', #{consult,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="userAccount!=''">
+                and user_account like concat('%', #{userAccount,jdbcType=VARCHAR}, '%')
+            </if>
+            <if test="stime!=''">
+                and order_time <![CDATA[>=]]>#{stime}
+            </if>
+            <if test="etime!=''">
+                and order_time <![CDATA[<=]]>#{etime}
+            </if>
+        </where>
+        limit #{limit},#{offset}
+    </select>
+
+    <insert id="addConsultAccountTable">
+        insert into admin_income_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="consultId != null">
+                consult_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="order != null">
+                aincome_content,
+            </if>
+            <if test="consultFee != null">
+                aincome_money,
+            </if>
+            aincome_time,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="consultId != null">
+                #{consultId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="order != null">
+                #{order,jdbcType=VARCHAR},
+            </if>
+            <if test="consultFee != null">
+                #{consultFee,jdbcType=DOUBLE},
+            </if>
+            now(),
+        </trim>
+    </insert>
+    <insert id="addUserAccountTable">
+        insert into user_income_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="consultId != null">
+                consult_id,
+            </if>
+            <if test="order != null">
+                income_content,
+            </if>
+            <if test="pay != null">
+                income_operation,
+            </if>
+            <if test="consultFee != null">
+                income_money,
+            </if>
+            income_time,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="consultId != null">
+                #{consultId,jdbcType=INTEGER},
+            </if>
+            <if test="order != null">
+                #{order,jdbcType=VARCHAR},
+            </if>
+            <if test="pay != null">
+                #{pay,jdbcType=VARCHAR},
+            </if>
+            <if test="consultFee != null">
+                #{consultFee,jdbcType=DOUBLE},
+            </if>
+            now(),
+        </trim>
+    </insert>
+    <update id="DiagnosisUser">
+        update order_info
+        set order_reply=#{myAnswer},
+            reply_time=now()
+        where user_id = #{userId}
+    </update>
+
+    <update id="updateState">
+        update order_info
+        set state_id=4,
+            comment_time=now()
+        where user_id = #{userId}
+    </update>
+
+    <update id="TerminateAppointment">
+        update order_info
+        set state_id=6,
+            comment_time=now()
+        where user_id = #{userId}
+          and order_time = #{orderTime}
+    </update>
+</mapper>

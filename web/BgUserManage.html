@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<script src="js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="3rd/zui-1.9.2-dist/dist/css/zui.min.css">
+<script src="3rd/layer/layer.js"></script>
+<link rel="stylesheet" href="css/BgUserManage.css">
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>后台用户管理</title>
+</head>
+<body>
+<div class="panel">
+    <div class="panel-body">
+        <div>
+            <div class="col-md-1"><input type="text" id="AdmNameSearch" class="form-control" placeholder="输入用户名"></div>
+            <div class="col-md-1"><select data-placeholder="状态选择" id="ifStart" class="chosen-select form-control"
+                                          tabindex="2">
+                <option value="">全部</option>
+                <option value="0">启用</option>
+                <option value="1">禁用</option>
+            </select></div>
+            <div class="col-md-2"><select data-placeholder="" id="titleSelect" class="chosen-select form-control"
+                                          tabindex="2">
+                <option value="">咨询师选择</option>
+                <option value="1">一级咨询师</option>
+                <option value="2">二级咨询师</option>
+                <option value="3">三级咨询师</option>
+                <option value="4">四级咨询师</option>
+                <option value="5">高级咨询师</option>
+            </select></div>
+            <div class="col-md-1"><input type="button" id="SearchBtn" class="btn btn-primary" value="搜索"></div>
+            <div class="col-md-1"><input type="button" id="AddUserBtn" class="btn btn-danger" value="添加用户"
+                                         data-toggle="modal" data-target="#myModal"></div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="data-title-d" colspan="15" style="font-size: 25px;text-align: center"><b>后台用户信息</b></div>
+    </div>
+    <table id="table" class="table table-hover table-bordered">
+        <thead>
+        <tr align="center" style="font-weight: bold;">
+            <td>姓名</td>
+            <td>职称</td>
+            <td>毕业学校</td>
+            <td>状态</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody class="mytable" id="mybody">
+
+        </tbody>
+    </table>
+</div>
+<ul class="pager" style="margin-left: 45%">
+    <li><a id="prePage" href="#" class="previous">上一页</a></li>
+    <li><span id="tablepage" class="previous">1/1</span></li>
+    <li><a id="nextPage" href="#" class="next">下一页</a></li>
+</ul>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title">添加用户</h4>
+            </div>
+            <div class="modal-body">
+                <input id="admAccount" class="a form-control" placeholder="管理员账号" type="text"/>
+                <input id="admPwd" class="a form-control" placeholder="管理员密码" type="text"/>
+                <select class="a form-control" id="admRole">
+                    <option value="1">管理员</option>
+                    <option value="2">咨询师</option>
+                </select>
+
+
+                <div id="consult" hidden>
+                    <select data-placeholder="" id="title" class="a chosen-select form-control"
+                            tabindex="2">
+
+                        <option value="1">一级咨询师</option>
+                        <option value="2">二级咨询师</option>
+                        <option value="3">三级咨询师</option>
+                        <option value="4">四级咨询师</option>
+                        <option value="5">高级管理员</option>
+                    </select>
+                    <div class="a" id="checkboxs">
+                        <label class="checkbox-inline">
+                            <input class="checkboxItem" type="checkbox" value="1"> 亲子关系
+                        </label>
+                        <label class="checkbox-inline">
+                            <input class="checkboxItem" type="checkbox" value="2"> 情绪管理
+                        </label>
+                        <label class="checkbox-inline">
+                            <input class="checkboxItem" type="checkbox" value="3"> 人际关系
+                        </label>
+                        <label class="checkbox-inline">
+                            <input class="checkboxItem" type="checkbox" value="4"> 抑郁障碍
+                        </label>
+                    </div>
+                    <input id="School" class="a form-control" placeholder="毕业院校" type="text"/>
+                    <input id="cost" class="a form-control" placeholder="费用" type="text"/>
+                    <input id="pbg" class="a form-control" placeholder="专业背景" type="text"/>
+                    <input id="brief" class="a form-control" placeholder="简介" type="text"/>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal" class="btn btn-default" type="button">关闭</button>
+                <button data-dismiss="modal" class="btn btn-primary" type="button" id="subBtn">提交</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+</body>
+<script src="3rd/zui-1.9.2-dist/dist/js/zui.min.js"></script>
+<script src="js/BgUserMange.js"></script>
+</html>

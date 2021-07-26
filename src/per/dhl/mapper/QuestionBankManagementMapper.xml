@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="per.dhl.mapper.QuestionBankManagementMapper">
+
+    <select id="InitQuestionBankManagementTable" resultType="per.dhl.qo.QuestionBankManagementQo">
+        SELECT *
+        FROM topic_info a
+                 INNER JOIN option_info b ON a.topic_id = b.topic_id
+        where a.field_id = #{selectValue} limit #{limit}
+            , #{offset}
+    </select>
+</mapper>
